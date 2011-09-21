@@ -12,14 +12,28 @@ void set_cpu_name(struct cpuinfo_x86 *c) {
 	c->x86_model_id[CM_SIZE-1] = '\0';
 }
 
-int init_module() {
+void set_all_names(void) {
     loff_t i;
-
-    printk(KERN_INFO "cpufake loaded.\n");
-
     for (i=0; i < nr_cpu_ids; i++) {
 	set_cpu_name(&cpu_data(i));
     }
+}
+
+static int cpufake_set_name(const char *buffer, struct kernel_param *kp) {
+    int len = strlen(strcpy(cpuname,buffer));
+    set_all_names();
+    return len;
+}
+
+static int cpufake_get_name(char *buffer, struct kernel_param *kp) {
+    return strlen(strcpy(buffer, cpuname));
+}
+
+int init_module() {
+
+    printk(KERN_INFO "cpufake loaded.\n");
+
+    set_all_names();
 
     return 0;
 }
@@ -34,6 +48,7 @@ MODULE_AUTHOR("Maxime Augier <max@xolus.net>");
 MODULE_DESCRIPTION("Make /proc/cpuinfo lie about the CPU model");
 MODULE_LICENSE("GPL");
 
-module_param(cpuname, charp, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
+module_param_call(cpuname, cpufake_set_name, cpufake_get_name, NULL, S_IRUSR | S_IWUSR);
+__MODULE_PARM_TYPE(cpuname, "string");
 MODULE_PARM_DESC(cpuname, "Name of CPU to fake");
 
