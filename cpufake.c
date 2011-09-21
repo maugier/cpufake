@@ -5,7 +5,7 @@
 
 #define CM_SIZE 64
 
-static char *cpuname = "B0FHProc 256-bit, LightingTurboBoost enabled";
+static char cpuname[CM_SIZE] = "B0FHProc 256-bit, LightingTurboBoost enabled";
 
 void set_cpu_name(struct cpuinfo_x86 *c) {
 	strncpy(c->x86_model_id, cpuname, CM_SIZE-1);
