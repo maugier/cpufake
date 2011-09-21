@@ -1,0 +1,17 @@
+===========
+cpufake 0.1
+===========
+
+This is a completely pointless module whose purpose is to change the CPU model name
+in /proc/cpuinfo. I wrote this for a client who was unpleased not to see the real CPU
+name when running under a virtual machine. Whatever...
+
+Installation:
+
+make
+make install
+
+Usage:
+
+modprobe cpufake
+echo "My UltraCool new Processor model" >/sys/modules/cpufake/parameters/cpuname
