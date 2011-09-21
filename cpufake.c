@@ -20,7 +20,8 @@ void set_all_names(void) {
 }
 
 static int cpufake_set_name(const char *buffer, struct kernel_param *kp) {
-    int len = strlen(strcpy(cpuname,buffer));
+    int len = strlen(strncpy(cpuname,buffer,CM_SIZE-1));
+    cpuname[CM_SIZE-1] = '\0';
     set_all_names();
     return len;
 }
