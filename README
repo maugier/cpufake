@@ -1,4 +1,3 @@
-===========
 cpufake 0.1
 ===========
 
@@ -8,10 +7,13 @@ name when running under a virtual machine. Whatever...
 
 Installation:
 
-make
-make install
+- `make`
+- `make install`
+
+(`make install` may fail if your kernel has never been recompiled, in which case you can just keep
+the `cpufake.ko` file around.
 
 Usage:
 
-modprobe cpufake
-echo -n "My UltraCool new Processor model" >/sys/modules/cpufake/parameters/cpuname
+- `modprobe cpufake` (Or if `make install` failed, `insmod cpufake.ko`)
+- `echo -n "My UltraCool new Processor model" >/sys/modules/cpufake/parameters/cpuname`
