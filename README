@@ -14,4 +14,4 @@ make install
 Usage:
 
 modprobe cpufake
-echo "My UltraCool new Processor model" >/sys/modules/cpufake/parameters/cpuname
+echo -n "My UltraCool new Processor model" >/sys/modules/cpufake/parameters/cpuname
